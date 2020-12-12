@@ -15,11 +15,6 @@ export default class TestLayout extends React.Component {
             console.log(`Links: ${event.data}`);
     }
     render(){
-        let loadHTML = (event)=> {
-            let url = new URL(URL.createObjectURL(event.target.files[0]));
-            this.setState({url: url});
-            globalThis.pageViewer.src = url;
-        }
         let checkLinks = () => {
             if(this.state.url)
                 globalThis.pageViewer.contentWindow.postMessage('links', this.state.url);
@@ -33,13 +28,13 @@ export default class TestLayout extends React.Component {
                 <div className={styles.fixed}>
                     <div className={styles.testInfo}>
                         <Button variant="outline-secondary" onClick={(e)=>{globalThis.fileInput.click();}} >{selectFileStr}</Button>{' '}
-                        <input type="file" id="fileInput" className={styles.fileSelector} onChange={(e) => loadHTML(e)}></input>
+                        <input type="file" id="fileInput" className={styles.fileSelector} onChange={(e) => this.setState({url: new URL(URL.createObjectURL(e.target.files[0]))})}></input>
                         <Button variant="outline-success" onClick={checkLinks} >{checkStr}</Button>{' '}
                         <div></div>
                     </div>
                 </div>
                 <div className={styles.stretched}>
-                    <iframe className={styles.htmlViewer} id="pageViewer"></iframe>
+                    <iframe className={styles.htmlViewer} id="pageViewer" src={this.state.url}></iframe>
                 </div>
             </div>
         )
