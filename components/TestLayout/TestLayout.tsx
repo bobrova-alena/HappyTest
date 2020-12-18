@@ -1,7 +1,7 @@
 import styles from './TestLayout.module.scss';
-import Button from 'react-bootstrap/Button'
 import React from 'react';
 import InputBoard from '../InputBoard/InputBoard';
+import ResultBoard from '../ResultBoard/ResultBoard';
 
 interface TestLayoutState{
     htmlFile: File,
@@ -20,14 +20,6 @@ export default class TestLayout extends React.Component<{},TestLayoutState> {
             docUrl: null
         };
     }
-    componentDidMount() {
-        globalThis.addEventListener('message', (event) => this.onMessage(event));
-    }
-    onMessage(event){
-        if(event.origin === this.state.htmlUrl?.origin) {
-            console.log(`Links: ${event.data}`);
-        }
-    }
     onHtmlFileChange(file: File){
         this.setState({htmlFile: file,
                     htmlUrl: new URL(URL.createObjectURL(file))
@@ -38,12 +30,6 @@ export default class TestLayout extends React.Component<{},TestLayoutState> {
     }
 
     render(){
-        let requestLinks = () => {
-            if(this.state.htmlFile)
-                globalThis.pageViewer.contentWindow.postMessage('links', this.state.htmlFile);
-        };
-        
-        let checkStr='Check links';
 
         return (
             <div className={styles.container}>
@@ -53,7 +39,7 @@ export default class TestLayout extends React.Component<{},TestLayoutState> {
                                     docUrl={this.state.docUrl}
                                     onDocUrlChange={this.onDocUrlChange}
                                     onHtmlFileChange={this.onHtmlFileChange}></InputBoard>
-                        <Button variant="outline-success" onClick={requestLinks} >{checkStr}</Button>{' '}
+                        <ResultBoard docUrl={this.state.docUrl} htmlOrigin={this.state.htmlUrl?.origin}/>
                     </div>
                 </div>
                 <div className={styles.stretched}>
