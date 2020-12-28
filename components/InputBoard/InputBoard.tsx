@@ -1,12 +1,12 @@
 import React from 'react';
-import Form from 'react-bootstrap/Form'
-import styles from './InputBoard.module.scss'
+import Form from 'react-bootstrap/Form';
+import styles from './InputBoard.module.scss';
 
 type TestLayoutProps = {
     file: File,
     docUrl: URL,
     onHtmlFileChange(file: File),
-    onDocUrlChange(uri: URL)
+    onDocUrlChange(uri: URL),
 }
 
 export default class InputBoard extends React.Component<TestLayoutProps, {}> {
@@ -15,14 +15,14 @@ export default class InputBoard extends React.Component<TestLayoutProps, {}> {
         this.handleDocUrlChange = this.handleDocUrlChange.bind(this);
         this.handleHtmlFileChange = this.handleHtmlFileChange.bind(this);
     }
-    handleHtmlFileChange(e){
+    handleHtmlFileChange(e) {
         this.props.onHtmlFileChange(e.target.files[0]);
     }
-    handleDocUrlChange(e){
+    handleDocUrlChange(e) {
         //todo validate a url
         this.props.onDocUrlChange(new URL(e.target.value));
     }
-    render(){
+    render() {
         let selectFileStr = 'Select a html file';
         let selectSheetStr= 'Set a google spreadsheet url';
 
@@ -35,5 +35,5 @@ export default class InputBoard extends React.Component<TestLayoutProps, {}> {
             </Form>
         );
     }
-};
+}
 

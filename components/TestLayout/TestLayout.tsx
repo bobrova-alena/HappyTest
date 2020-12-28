@@ -4,12 +4,12 @@ import InputBoard from '../InputBoard/InputBoard';
 import ResultBoard from '../ResultBoard/ResultBoard';
 
 interface TestLayoutState{
-    htmlFile: File,
-    htmlUrl: URL,
-    docUrl: URL
+    htmlFile: File;
+    htmlUrl: URL;
+    docUrl: URL;
 }
 
-export default class TestLayout extends React.Component<{},TestLayoutState> {
+export default class TestLayout extends React.Component<{}, TestLayoutState> {
     constructor(props) {
         super(props);
         this.onHtmlFileChange = this.onHtmlFileChange.bind(this);
@@ -20,25 +20,25 @@ export default class TestLayout extends React.Component<{},TestLayoutState> {
             docUrl: null
         };
     }
-    onHtmlFileChange(file: File){
-        this.setState({htmlFile: file,
-                    htmlUrl: new URL(URL.createObjectURL(file))
+    onHtmlFileChange(file: File) {
+        this.setState({ htmlFile: file,
+            htmlUrl: new URL(URL.createObjectURL(file))
         });
     }
-    onDocUrlChange(uri: URL){
-        this.setState({docUrl:uri});
+    onDocUrlChange(uri: URL) {
+        this.setState({ docUrl: uri });
     }
 
-    render(){
+    render() {
 
         return (
             <div className={styles.container}>
                 <div className={styles.fixed}>
                     <div className={styles.testInfo}>
-                        <InputBoard file={this.state.htmlFile} 
-                                    docUrl={this.state.docUrl}
-                                    onDocUrlChange={this.onDocUrlChange}
-                                    onHtmlFileChange={this.onHtmlFileChange}></InputBoard>
+                        <InputBoard file={this.state.htmlFile}
+                            docUrl={this.state.docUrl}
+                            onDocUrlChange={this.onDocUrlChange}
+                            onHtmlFileChange={this.onHtmlFileChange}></InputBoard>
                         <ResultBoard docUrl={this.state.docUrl} htmlOrigin={this.state.htmlUrl?.origin}/>
                     </div>
                 </div>
@@ -46,6 +46,6 @@ export default class TestLayout extends React.Component<{},TestLayoutState> {
                     <iframe className={styles.htmlViewer} id="pageViewer" src={this.state.htmlUrl?.toString()}></iframe>
                 </div>
             </div>
-        )
+        );
     }
 }
