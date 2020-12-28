@@ -4,6 +4,8 @@ export async function getSheetData(url: URL) {
 }
 
 export async function authorize() {
-    const response = await fetch('/api/doogle-doc-authorization');
+    const response = await fetch('/api/doogle-doc');
     return await response.json();
+    //await response;
+    //return;
 }
