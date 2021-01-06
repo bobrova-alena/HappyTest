@@ -1,6 +1,6 @@
 import React from 'react';
 import Button from 'react-bootstrap/Button';
-import { authorize, getSheetData } from '../../services/api-service';
+import { authorize } from '../../services/api-service';
 import styles from './ResultBoard.module.scss';
 
 type ResultBoardProps = {
@@ -22,8 +22,7 @@ export default class ResultBoard extends React.Component<ResultBoardProps, {}> {
         if(event.origin !== this.props.htmlOrigin)
             return;
 
-        console.log(`Links: ${event.data}`);
-        this.getSheetData();
+        //console.log(`Links: ${event.data}`);
     }
 
     handleCheckBtnClick() {
@@ -31,13 +30,6 @@ export default class ResultBoard extends React.Component<ResultBoardProps, {}> {
     }
     handleAuthorizeBntClick() {
         this.authorize();
-    }
-    getSheetData = () => {
-        getSheetData(this.props.docUrl)
-            .then(data => {
-                console.log('!!!');
-                console.log(data);
-            });
     }
     authorize = () => {
         authorize()

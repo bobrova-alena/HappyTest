@@ -1,21 +1,15 @@
-export function getLinks(sheets, spreadsheetId: string, range: string) {
+export async function getLinks(sheets, spreadsheetId: string, range: string) {
     let links=[];
-    sheets.spreadsheets.values.get({
+    const request = {
         spreadsheetId: spreadsheetId,
         range: range,
-    }, (err, res) => {
-        if(err)
-            return console.log('The sheets API returned an error: ' + err);
-        const rows = res.data.values;
-        if(rows.length) {
-            rows.map((row) => {
-                console.log(`${row[0]}`);
-                links.push(row[0]);
-            });
-        } else {
-            console.log('No data found.');
-        }
-    });
-
+    };
+    const response = (await sheets.spreadsheets.values.get(request)).data;
+    const rows = response.values;
+    if(rows.length) {
+        links = rows.map(row => row[0]);
+    } else {
+        console.log('No data found.');
+    }
     return links;
 }
