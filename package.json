@@ -11,7 +11,13 @@
   "author": "Bobrova Alena",
   "license": "MIT",
   "dependencies": {
+    "@typescript-eslint/eslint-plugin": "^4.11.0",
+    "@typescript-eslint/parser": "^4.11.0",
     "bootstrap": "^4.5.3",
+    "dotenv": "^8.2.0",
+    "eslint": "^7.16.0",
+    "eslint-plugin-import": "^2.22.1",
+    "googleapis": "^66.0.0",
     "next": "10.0.3",
     "react": "17.0.1",
     "react-bootstrap": "^1.4.0",

@@ -20,6 +20,7 @@
     min-width: 600px;
     max-width: 1200px;
     height: 100%;
+    padding-right: 15px;
 }
 
 .htmlViewer {
@@ -36,4 +37,9 @@
     overflow: hidden;
     position: absolute;
     z-index: -1;
+}
+
+.docSelector {
+    width: 100px;
+    height: 38px;
 }
