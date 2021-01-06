@@ -24,7 +24,7 @@ export default class InputBoard extends React.Component<TestLayoutProps, TestLay
         this.handleDocUrlChange = this.handleDocUrlChange.bind(this);
         this.handleHtmlFileChange = this.handleHtmlFileChange.bind(this);
         this.state = {
-            selectSheetStr: this.selectSheetHolderStr,
+            selectSheetStr: '',
         };
     }
     handleHtmlFileChange(e) {
@@ -43,9 +43,12 @@ export default class InputBoard extends React.Component<TestLayoutProps, TestLay
         }
     }
     componentDidMount() {
-        this.setState({
-            selectSheetStr: getCookie(this.storageKeys.sheet)
-        });
+        let uri = getCookie(this.storageKeys.sheet);
+        if(uri) {
+            this.setState({
+                selectSheetStr: uri
+            });
+        }
     }
     render() {
         let selectFileStr = 'Select a html file';
