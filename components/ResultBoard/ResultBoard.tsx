@@ -44,7 +44,7 @@ export default class ResultBoard extends React.Component<ResultBoardProps, {}> {
     authorize() {
         authorize()
             .then(data => {
-                globalThis.location = decodeURI(data.authUrl);
+                globalThis.location.href = decodeURI(data.authUrl);
             });
     }
     getLinksFromSheet() {
