@@ -1,6 +1,6 @@
 import React from 'react';
 import Button from 'react-bootstrap/Button';
-import { authorize } from '../../services/api-service';
+import { authorize, getLinksFromSheet } from '../../services/api-service';
 import styles from './ResultBoard.module.scss';
 
 type ResultBoardProps = {
@@ -22,7 +22,17 @@ export default class ResultBoard extends React.Component<ResultBoardProps, {}> {
         if(event.origin !== this.props.htmlOrigin)
             return;
 
-        //console.log(`Links: ${event.data}`);
+        try {
+            let hrefs = JSON.parse(event.data).hrefs;
+            if(hrefs) {
+                getLinksFromSheet()
+                    .then(data => {
+                        this.compareLinks(data.links.filter(value=>value&&value.indexOf('http')!=-1), hrefs);
+                    });
+            }
+        } catch{
+
+        }
     }
 
     handleCheckBtnClick() {
@@ -31,11 +41,31 @@ export default class ResultBoard extends React.Component<ResultBoardProps, {}> {
     handleAuthorizeBntClick() {
         this.authorize();
     }
-    authorize = () => {
+    authorize() {
         authorize()
+            .then(data => {
+                globalThis.location.href = decodeURI(data.authUrl);
+            });
+    }
+    getLinksFromSheet() {
+        getLinksFromSheet()
             .then(data => {
                 alert(data.links);
             });
+    }
+    compareLinks(expected: Array<string>, result: Array<string>) {
+        if(result.length!=expected.length)
+            console.log(`Different length. Expected ${expected.length}. Result: ${result.length}`);
+
+        let hasError=false;
+        result.forEach((value, index)=>{
+            if(value.trim()!=expected[index].trim()) {
+                console.log(`Expected: ${expected[index].trim()}. Result: ${value.trim()}`);
+                hasError=true;
+            }
+        });
+        if(!hasError)
+            console.log('Success!');
     }
     render() {
         let checkStr='Check links';
