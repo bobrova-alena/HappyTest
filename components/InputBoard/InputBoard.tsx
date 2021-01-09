@@ -48,6 +48,7 @@ export default class InputBoard extends React.Component<TestLayoutProps, TestLay
             this.setState({
                 selectSheetStr: uri
             });
+            this.props.onDocUrlChange(new URL(uri));
         }
     }
     render() {
